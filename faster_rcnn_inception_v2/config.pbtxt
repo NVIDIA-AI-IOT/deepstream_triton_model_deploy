@@ -1,0 +1,67 @@
+# Copyright (c) 2017, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# tf_gpu_memory_fraction: 0.2 is specified for device with limited memory
+# resource such as Nano. Smaller value can limit Tensorflow GPU usage;
+# and larger value may increase performance but may also cause Out-Of-Memory
+# issues. Please tune a proper value.
+
+name: "faster_rcnn_inception_v2"
+platform: "tensorflow_graphdef"
+max_batch_size: 8
+input [
+  {
+    name: "image_tensor"
+    data_type: TYPE_UINT8
+    format: FORMAT_NHWC
+    dims: [ 1920, 1080, 3 ]
+  }
+]
+output [
+  {
+    name: "detection_boxes"
+    data_type: TYPE_FP32
+    dims: [ 100, 4]
+    reshape { shape: [100,4] }
+  },
+  {
+    name: "detection_classes"
+    data_type: TYPE_FP32
+    dims: [ 100 ]
+  },
+  {
+    name: "detection_scores"
+    data_type: TYPE_FP32
+    dims: [ 100 ]
+  },
+  {
+    name: "num_detections"
+    data_type: TYPE_FP32
+    dims: [ 1 ]
+    reshape { shape: [] }
+  }
+]
+version_policy: { specific {versions: 1}}
+instance_group [
+  {
+    kind: KIND_GPU
+    count: 1
+    gpus: [ 0 ]
+  }
+]
+#optimization { execution_accelerators {
+#  gpu_execution_accelerator : [ {
+#    name : "tensorrt"
+#    parameters { key: "precision_mode" value: "FP16" }}]
+#}}
