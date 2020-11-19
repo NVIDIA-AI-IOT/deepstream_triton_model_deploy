@@ -6,7 +6,7 @@ We are using Deepstream-5.0 with Triton Inference Server to deploy the FasterRCN
 
 [DeepStream SDK 5.0](https://developer.nvidia.com/deepstream-sdk)
 
-Download and install DeepStream SDK or use DeepStream docker image (nvcr.io/nvidia/deepstream:5.0-20.07-triton) for x86 and (nvcr.io/nvidia/deepstream-l4t:5.0-20.07-samples) for NVIDIA Jetson.
+Download and install DeepStream SDK or use DeepStream docker image (nvcr.io/nvidia/deepstream:5.0.1-20.09-triton) for x86 and (nvcr.io/nvidia/deepstream-l4t:5.0-20.07-samples) for NVIDIA Jetson.
 
 Follow the instructions mentioned in the quick start guide: (https://docs.nvidia.com/metropolis/deepstream/dev-guide/index.html#page/DeepStream_Development_Guide/deepstream_quick_start.html)
 

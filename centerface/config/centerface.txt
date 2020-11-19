@@ -1,0 +1,75 @@
+# Copyright (c) 2017, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# tf_gpu_memory_fraction: 0.2 is specified for device with limited memory
+# resource such as Nano. Smaller value can limit Tensorflow GPU usage;
+# and larger value may increase performance but may also cause Out-Of-Memory
+# issues. Please tune a proper value.
+
+infer_config {
+  unique_id: 1
+  gpu_ids: 0
+  max_batch_size: 1
+  backend {
+    inputs [
+      {
+        name: "input.1"
+        dims: [3, 480, 640]
+      }
+    ]
+    trt_is {
+      model_name: "centerface"
+      version: -1
+      model_repo {
+        root: "../"
+        log_level: 1
+        tf_gpu_memory_fraction: 0.2
+        tf_disable_soft_placement: 0
+      }
+    }
+  }
+
+  preprocess {
+    network_format: IMAGE_FORMAT_RGB
+    tensor_order: TENSOR_ORDER_NONE
+    maintain_aspect_ratio: 0
+    normalize {
+      scale_factor: 1.0
+      channel_offsets: [0, 0, 0]
+    }
+  }
+
+  postprocess {
+    labelfile_path: "../centerface/centerface_labels.txt"
+    detection {
+      num_detected_classes: 1
+      custom_parse_bbox_func: "NvDsInferParseCustomCenterNetFace"
+      simple_cluster {
+        threshold: 0.3
+      }
+    }
+  }
+
+  custom_lib {
+    path: "../customparser/libnvds_infercustomparser_centernet.so"
+  }
+
+  extra {
+    copy_input_to_host_buffers: false
+  }
+}
+input_control {
+  process_mode: PROCESS_MODE_FULL_FRAME
+  interval: 0
+}
