@@ -18,7 +18,7 @@ CFLAGS:= -Wall -std=c++11
 
 CFLAGS+= -shared -fPIC
 
-CFLAGS+= -I/opt/nvidia/deepstream/deepstream-5.0/sources/includes
+CFLAGS+= -I/opt/nvidia/deepstream/deepstream-5.1/sources/includes
 
 LIBS:= -lnvinfer -lnvparsers
 LFLAGS:= -Wl,--start-group $(LIBS) -Wl,--end-group
