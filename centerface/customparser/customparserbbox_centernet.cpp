@@ -167,8 +167,8 @@ extern "C" bool NvDsInferParseCustomCenterNetFace(std::vector<NvDsInferLayerInfo
 		return false;
 	}
 
-	int fea_h = heatmap->inferDims.d[2]; //#heatmap.size[2];
-	int fea_w = heatmap->inferDims.d[3]; //heatmap.size[3];
+	int fea_h = heatmap->inferDims.d[1]; //# output h
+	int fea_w = heatmap->inferDims.d[2]; //#output w
 	int spacial_size = fea_w * fea_h;
 	//	std::cout<<"features"<<fea_h<<"width"<<fea_w<<std::endl;
 	float *heatmap_ = (float *)(heatmap->buffer);
