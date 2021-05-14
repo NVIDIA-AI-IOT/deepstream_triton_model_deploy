@@ -21,12 +21,12 @@ def update_dim(model):
     inputs = model.graph.input
     outputs = model.graph.output
 
-    inputs[0].type.tensor_type.shape.dim[0].dim_value = 1
+    inputs[0].type.tensor_type.shape.dim[0].dim_value = -1
     inputs[0].type.tensor_type.shape.dim[2].dim_value = value
     inputs[0].type.tensor_type.shape.dim[3].dim_value = value
     
     for output in outputs:
-        output.type.tensor_type.shape.dim[0].dim_value = 1
+        output.type.tensor_type.shape.dim[0].dim_value = -1
         output.type.tensor_type.shape.dim[2].dim_value = value # 
         output.type.tensor_type.shape.dim[3].dim_value = value
 
