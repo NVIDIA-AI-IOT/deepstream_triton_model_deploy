@@ -42,7 +42,7 @@ infer_config {
 
   preprocess {
     network_format: IMAGE_FORMAT_RGB
-    tensor_order: TENSOR_ORDER_NONE
+    tensor_order: TENSOR_ORDER_LINEAR
     maintain_aspect_ratio: 0
     normalize {
       scale_factor: 1.0
