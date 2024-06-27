@@ -1,3 +1,7 @@
+# ------------------------------------------------------
+# This sample application is no longer maintained
+# ------------------------------------------------------
+
 # Deploying an open source model using NVIDIA DeepStream and Triton Inference Server
 
 This repository contains contains the the code and configuration files required to deploy sample open source models video analytics using Triton Inference Server and DeepStream SDK 5.0.
